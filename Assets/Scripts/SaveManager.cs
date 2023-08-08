@@ -1,5 +1,4 @@
 using UnityEngine;
-
 using System.IO;
 
 public class SaveManager : MonoBehaviour {
@@ -11,28 +10,27 @@ public class SaveManager : MonoBehaviour {
         if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
-        }
+        } Instance = this;
 
-        Instance = this;
         DontDestroyOnLoad(gameObject);
 
         SaveData data = new() {
             username = "User"
-        };
-
-        Save(data);
+        }; Save(data); // ABSTRACTION
     }
 
+    // Start username handler
     string username;
-
-    public void SetUsername(string name) {
+    public void SetUsername(string name) { // ENCAPSULATION
         username = name;
     }
 
-    public string GetUsername() {
+    public string GetUsername() { // ENCAPSULATION
         return username;
     }
+    // End username handler
 
+    // Start general save & load methods
     [System.Serializable]
     public class SaveData {
         public string username;
@@ -40,12 +38,12 @@ public class SaveManager : MonoBehaviour {
 
     public void Save() {
         SaveData data = new() {
-            username = username
+            username = GetUsername()  // ABSTRACTION
         };
 
         string json = JsonUtility.ToJson(data);
-        string path = Application.persistentDataPath + $"/{username}_save.json";
-        File.WriteAllText(Application.persistentDataPath + $"/{username}_save.json", json);
+        string path = Application.persistentDataPath + $"/{GetUsername()}_save.json";  // ABSTRACTION
+        File.WriteAllText(path, json);
 
         Debug.Log("Data has been saveed at " + path + ", with the data" + json);
     }
@@ -56,15 +54,15 @@ public class SaveManager : MonoBehaviour {
         };
 
         string json = JsonUtility.ToJson(data);
-        string path = Application.persistentDataPath + $"/{username}_save.json";
-        File.WriteAllText(Application.persistentDataPath + $"/{uName}_save.json", json);
+        string path = Application.persistentDataPath + $"/{GetUsername()}_save.json";  // ABSTRACTION
+        File.WriteAllText(path, json);
 
         Debug.Log("Data has been saveed at " + path + ", with the data" + json);
     }
 
     public void Save(SaveData data) {
         string json = JsonUtility.ToJson(data);
-        string path = Application.persistentDataPath + $"/{username}_save.json";
+        string path = Application.persistentDataPath + $"/{GetUsername()}_save.json";  // ABSTRACTION
         File.WriteAllText(path, json);
 
         Debug.Log("Data has been saveed at " + path + ", with the data" + json);
@@ -76,7 +74,7 @@ public class SaveManager : MonoBehaviour {
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         Debug.Log(path + " has been loaded");
-        username = data.username;
+        SetUsername(data.username);  // ABSTRACTION
     }
 
     public void Load(string uName) {
@@ -87,11 +85,12 @@ public class SaveManager : MonoBehaviour {
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             Debug.Log(path + " has been loaded");
-            username = data.username;
+            SetUsername(data.username); // ABSTRACTION
         }
         else {
-            Debug.LogError(path + " does not exist, Failed to load data");
-            username = "";
+            Debug.LogError("Failed to load data because " + path + " does not exist.");
+            SetUsername(""); // ABSTRACTIONq
         }
     }
+    // End general save & load methods
 }

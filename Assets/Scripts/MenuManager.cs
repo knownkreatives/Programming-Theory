@@ -1,45 +1,47 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour {
-    public TextMeshProUGUI currentUser;
-    public TMP_InputField saveUsernameField;
+    [SerializeField] TextMeshProUGUI currentUser;
+    [SerializeField] TextMeshProUGUI textInfo;
+    [SerializeField] TMP_InputField saveUsernameField;
 
     void Start() {
-        LoadMenuData();
+        LoadMenuData(); // ABSTRACTION
     }
 
     private void LoadMenuData() {
         SaveManager.Instance.Load();
-        Debug.Log("Load");
-        SetCurrentUserText();
+        textInfo.text = "*loaded " + SaveManager.Instance.GetUsername();
+        SetCurrentUserText(); // ABSTRACTION
     }
-    
     public void LoadMenuData(string uName) {
         SaveManager.Instance.Load(uName);
-        SetCurrentUserText();
+        textInfo.text = "*loaded " + uName;
+        SetCurrentUserText(); // ABSTRACTION
     }
     public void LoadMenuData(TMP_InputField uName) {
         SaveManager.Instance.Load(uName.text);
-        SetCurrentUserText();
+        textInfo.text = "*loaded " + uName.text;
+        SetCurrentUserText(); // ABSTRACTION
     }
 
     public void SaveMenuData() {
-        SaveManager.Instance.SetUsername(saveUsernameField.text);
-        SaveManager.Instance.Save();
+        SaveManager.Instance.SetUsername(saveUsernameField.text); // ENCAPSULATION
+        textInfo.text = "*saved " + SaveManager.Instance.GetUsername(); // ABSTRACTION
+        SaveManager.Instance.Save(); // ABSTRACTION
     }
     
     public void SetCurrentUserText() {
-        currentUser.text = "Hello " + SaveManager.Instance.GetUsername() + ".";
+        currentUser.text = "Hello " + SaveManager.Instance.GetUsername() + "."; // ABSTRACTION
     }
 
     public void Play(int difficulty) {
-        DifficultyManager.Instance.SetDifficulty(difficulty);
+        DifficultyManager.Instance.SetDifficulty(difficulty); // ABSTRACTION
         SceneManager.LoadScene(1);
     }
 
@@ -49,6 +51,6 @@ public class MenuManager : MonoBehaviour {
 #else
         Application.Quit();
 #endif
-        SaveMenuData();
+        SaveMenuData(); // ABSTRACTION
     }
 }
