@@ -1066,8 +1066,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hello ...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f5d0aa084a91d3c429e2e7eebfc19eaf, type: 2}
+  m_sharedMaterial: {fileID: -9038794853138152477, guid: f5d0aa084a91d3c429e2e7eebfc19eaf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1973,7 +1973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &948500684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3025,8 +3025,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: The Drive
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f5d0aa084a91d3c429e2e7eebfc19eaf, type: 2}
+  m_sharedMaterial: {fileID: -9038794853138152477, guid: f5d0aa084a91d3c429e2e7eebfc19eaf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

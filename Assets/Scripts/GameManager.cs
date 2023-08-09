@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator UpdateTime() {
         if (!GetGameState()) { // ABSTRACTION
-            yield return new WaitForSeconds(1 * (isBoosted ? 5 : 1));
+            yield return new WaitForSeconds(1 * (isBoosted ? 1/2.5f : 1));
             SetTime(1 + GetTime()); // ABSTRACTION
             StartCoroutine(UpdateTime()); // ABSTRACTION
         }
