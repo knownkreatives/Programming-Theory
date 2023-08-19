@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+public enum RevealType {
+    Characters, Words
+};
 
 namespace TMPro.Examples
 {
@@ -9,16 +12,22 @@ namespace TMPro.Examples
         private TMP_Text m_TextComponent;
         private bool hasTextChanged;
 
+        [SerializeField] public RevealType revealType;
+        [SerializeField][Min(0.1f)] float revealSpeed;
+
         void Awake()
         {
             m_TextComponent = gameObject.GetComponent<TMP_Text>();
         }
 
-
         void Start()
         {
-            StartCoroutine(RevealCharacters(m_TextComponent));
-            //StartCoroutine(RevealWords(m_TextComponent));
+            if (revealType == RevealType.Characters) {
+                StartCoroutine(RevealCharacters(m_TextComponent));
+            }
+            else if (revealType == RevealType.Words) {
+                StartCoroutine(RevealWords(m_TextComponent));
+            }
         }
 
 
@@ -64,7 +73,7 @@ namespace TMPro.Examples
 
                 if (visibleCount > totalVisibleCharacters)
                 {
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(revealSpeed);
                     visibleCount = 0;
                 }
 
@@ -108,7 +117,7 @@ namespace TMPro.Examples
                 // Once the last character has been revealed, wait 1.0 second and start over.
                 if (visibleCount >= totalVisibleCharacters)
                 {
-                    yield return new WaitForSeconds(1.0f);
+                    yield return new WaitForSeconds(revealSpeed);
                 }
 
                 counter += 1;
